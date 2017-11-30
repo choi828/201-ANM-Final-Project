@@ -23,7 +23,7 @@ my.ui <- navbarPage("My Application",
                           
                               ),
                      tabPanel("Component 3",
-                              plotOutput("mapmap")
+                              plotlyOutput("mapmap")
                               
                               
                               

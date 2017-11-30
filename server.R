@@ -16,9 +16,28 @@ my.server <- function(input, output) {
       type = "scatter",
       mode = "markers") %>% layout(title = "Home Team vs Away Team Scores", xaxis = x, yaxis = y)
     print(pl)
-    
-    map <- 
   })
-    
+    output$mapmap <- renderPlotly({
+      games.played.by.countries <- soccer.data %>% count(country)
+      l <- list(color = toRGB("grey"), width = 0.5)
+      
+      # specify map projection/options
+      g <- list(
+        showframe = TRUE,
+        showcoastlines = TRUE,
+        projection = list(type = 'Mercator')
+      )
+      
+      p <- plot_geo(games.played.by.countries) %>%
+        add_trace(
+          z = ~n, color = ~n, colors = 'Blues',
+          text = ~country, locations = ~country, marker = list(line = l)
+        ) %>%
+        colorbar(title = 'Number of Games Played', tickprefix = '') %>%
+        layout(
+          title = "Number of Games Played in Each Country Throughout the World",
+          geo = g
+        )
+    })
   
 }

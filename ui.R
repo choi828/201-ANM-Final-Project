@@ -22,5 +22,10 @@ my.ui <- navbarPage("My Application",
                      tabPanel("Component 2"
                           
                               ),
-                     tabPanel("Component 3")
+                     tabPanel("Component 3",
+                              plotOutput("mapmap")
+                              
+                              
+                              
+                              )
 )

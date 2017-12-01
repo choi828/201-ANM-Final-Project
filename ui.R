@@ -24,8 +24,7 @@ my.ui <- navbarPage("My Application",
                               ),
                      tabPanel("Component 3",
                               plotlyOutput("mapmap")
-                              
-                              
-                              
+
                               )
-)
+                  )
+shinyUI(my.ui)

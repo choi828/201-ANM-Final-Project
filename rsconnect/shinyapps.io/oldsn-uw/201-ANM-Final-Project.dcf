@@ -1,0 +1,12 @@
+name: 201-ANM-Final-Project
+title: 201-ANM-Final-Project
+username:
+account: oldsn-uw
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 242437
+bundleId: 1107722
+url: https://oldsn-uw.shinyapps.io/201-ANM-Final-Project/
+when: 1512096202.75895
+asMultiple: FALSE
+asStatic: FALSE

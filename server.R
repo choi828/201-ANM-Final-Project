@@ -3,7 +3,8 @@ library(ggplot2)
 library(leaflet)
 library(plotly)
 
-soccer.data <- read.csv("~/201-ANM-Final-Project/data/results.csv")
+soccer.data <- read.csv("data/results.csv")
+codes.data <- read.csv("data/names.with.codes.csv")
 my.server <- function(input, output) {
   
   output$teamvsteam <- renderPlotly({
@@ -18,26 +19,23 @@ my.server <- function(input, output) {
     print(pl)
   })
     output$mapmap <- renderPlotly({
-      games.played.by.countries <- soccer.data %>% count(country)
       l <- list(color = toRGB("grey"), width = 0.5)
-      
-      # specify map projection/options
       g <- list(
         showframe = TRUE,
-        showcoastlines = TRUE,
+        showcoastlines = FALSE,
         projection = list(type = 'Mercator')
       )
-      
-      p <- plot_geo(games.played.by.countries) %>%
+      p <- plot_geo(codes.data) %>%
         add_trace(
           z = ~n, color = ~n, colors = 'Blues',
-          text = ~country, locations = ~country, marker = list(line = l)
+          text = ~country, locations = ~codes, marker = list(line = l)
         ) %>%
-        colorbar(title = 'Number of Games Played', tickprefix = '') %>%
+        colorbar(title = 'Number of Games Played') %>%
         layout(
           title = "Number of Games Played in Each Country Throughout the World",
           geo = g
         )
+       p
     })
   
 }

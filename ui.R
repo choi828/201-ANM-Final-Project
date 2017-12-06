@@ -40,9 +40,8 @@ my.ui <- navbarPage("GROUP ANM",
                               titlePanel("Number of games played in the US over a specified period of time"),
                               
                               sidebarLayout(   
-                                sidebarPanel(  
-                                  p("Choose a timeframe:"),
-                                  sliderInput('slide', label = "Timeframe", min = 1885, 
+                                sidebarPanel(
+                                  sliderInput('slide', label = "Choose a timeframe", min = 1885, 
                                               max = 2017, value = c(2000,2017), sep = ""),
                                   checkboxInput('dim', "View by specific tournaments", value = FALSE)
                                 ),
@@ -53,15 +52,13 @@ my.ui <- navbarPage("GROUP ANM",
                               )
                       ),
                       tabPanel("Number of Wins Per Era",
-                               titlePanel("Number of wins for a certain team during a specified era"),
+                               titlePanel("Number of wins at home for a certain team during a specified era"),
                                
                                sidebarLayout(   
-                                 sidebarPanel(  
-                                   p("Choose a timeframe:"),
-                                   sliderInput('slide2', label = "Timeframe", min = 1885, 
+                                 sidebarPanel(
+                                   sliderInput('slide2', label = "Choose a timeframe", min = 1885, 
                                                max = 2017, value = c(2000,2017), sep = ""),
-                                   p("Choose a country:"),
-                                   textInput('team_spec', "Home Team's Country", "Argentina")
+                                   selectInput('team_spec', label = "Choose a country", choices = mylist)
                                  ),
                                  mainPanel(
                                    h1("Data"),

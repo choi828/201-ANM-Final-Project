@@ -39,6 +39,7 @@ my.server <- function(input, output) {
         filter(country == 'USA')
       # make a new column with just years to group by
       us.data$year <- format(as.Date(us.data$date, format="%Y-%m-%d"),"%Y")
+      # margins
       m <- list(l = 50, r = 50, b = 75, t = 0, pad = 4)
       if (input$dim == TRUE) { # If you want it in 3d
           us.data <- us.data %>% group_by(tournament, year) %>% summarise(n = n())
@@ -62,9 +63,11 @@ my.server <- function(input, output) {
       win.data <- win.data %>% filter(diff > 0) %>%
         filter(date >= input$slide2[1] & date <= input$slide2[2])
       win.data <- win.data %>% group_by(year) %>% summarise(n = n())
+      # margins
+      m <- list(l = 50, r = 50, b = 75, t = 0, pad = 4)
       # plot graph
       pw <- plot_ly(win.data, x = ~year, y = ~n, type = 'scatter', 
-                    mode = 'lines')
+                    mode = 'lines') %>% layout(margin = m)
       print(pw)
     })
 }

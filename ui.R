@@ -44,7 +44,7 @@ my.ui <- navbarPage("GROUP ANM",
                                   p("Choose a timeframe:"),
                                   sliderInput('slide', label = "Timeframe", min = 1885, 
                                               max = 2017, value = c(2000,2017), sep = ""),
-                                  checkboxInput('dim', "View with specific tournaments", value = FALSE)
+                                  checkboxInput('dim', "View by specific tournaments", value = FALSE)
                                 ),
                                 mainPanel(
                                   h1("Data"),

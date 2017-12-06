@@ -39,21 +39,15 @@ my.server <- function(input, output) {
         filter(country == 'USA')
       # make a new column with just years to group by
       us.data$year <- format(as.Date(us.data$date, format="%Y-%m-%d"),"%Y")
-      # formatting
-      f <- list(family = "Courier New, monospace", size = 18, color = "#7f7f7f")
-      x <- list(title = paste0(c(rep("\n&nbsp;", 1), rep("&nbsp;", 1000), "Year", rep("&nbsp;", 1000)), collapse = ""), titlefont = f)
-      ytourn <- list(title = "Tournament", titlefont = f)
-      ycount <- list(title = "Count", titlefont = f)
-      z <- list(title = "Count", titlefont = f)
-      m3d <- list(t = 0)
+      m <- list(l = 50, r = 50, b = 75, t = 0, pad = 4)
       if (input$dim == TRUE) { # If you want it in 3d
           us.data <- us.data %>% group_by(tournament, year) %>% summarise(n = n())
-          p <- plot_ly(x = ~year, y = ~tournament, z = ~n, type = 'scatter3d', 
-                       mode = 'lines') %>% layout(xaxis = x, yaxis = ytourn, zaxis = z, autosize = F, width = 500, height = 750, margin = m3d)
+          p <- plot_ly(us.data, x = ~year, y = ~tournament, z = ~n, type = 'scatter3d', 
+                       mode = 'lines') %>% layout(autosize = F, width = 750, height = 750)
       } else { # if you do not want it in 3d
           us.data <- us.data %>% group_by(year) %>% summarise(n = n())
-          p <- plot_ly(us.data, x = us.data$year, y = us.data$n, type = 'scatter', 
-                       mode = 'lines') %>% layout(xaxis = x, yaxis = ycount)
+          p <- plot_ly(us.data, x = ~year, y = ~n, type = 'scatter', 
+                       mode = 'lines') %>% layout(margin = m)
       }
       print(p)
     })

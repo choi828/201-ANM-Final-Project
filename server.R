@@ -8,6 +8,8 @@ soccer.data$home_score <- as.numeric(soccer.data$home_score)
 soccer.data$away_score <- as.numeric(soccer.data$away_score)
 #
 my.server <- function(input, output) {
+    url <- a("GitHub Project Link", href="https://github.com/oldsalann/201-ANM-Final-Project")
+    output$git <- renderUI({tagList(url)}) 
   
     output$teamvsteam <- renderPlotly({
       # filter data to input specifics

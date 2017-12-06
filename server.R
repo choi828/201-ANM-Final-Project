@@ -2,7 +2,7 @@ library(shiny)
 library(plotly)
 
 # get all data and take it out of vector form
-soccer.data <- read.csv("~/INFO_201/Assignments/201-ANM-Final-Project/data/results.csv")
+soccer.data <- read.csv("~/201-ANM-Final-Project/data/results.csv")
 soccer.data <- data.frame(lapply(soccer.data, as.character), stringsAsFactors=FALSE)
 soccer.data$home_score <- as.numeric(soccer.data$home_score)
 soccer.data$away_score <- as.numeric(soccer.data$away_score)

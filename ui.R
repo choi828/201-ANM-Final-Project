@@ -19,12 +19,36 @@ my.ui <- navbarPage("My Application",
                                 )
                               )
                               ),
-                     tabPanel("Component 2"
-                          
-                              ),
-                     tabPanel("Component 3",
-                              plotlyOutput("mapmap")
-
+                     tabPanel("Trend in US Games Played",
+                              titlePanel("Number of games played in the US over a specified period of time"),
+                              
+                              sidebarLayout(   
+                                sidebarPanel(  
+                                  p("Choose a timeframe:"),
+                                  sliderInput('slide', label = "Timeframe", min = 1885, 
+                                              max = 2017, value = c(1885,2017)),
+                                  checkboxInput('dim', "3D", value = FALSE)
+                                ),
+                                mainPanel(
+                                  h1("Data"),
+                                  plotlyOutput("mapmap")
+                                )
+                              )
+                      ),
+                      tabPanel("Macklan's Graph",
+                               titlePanel("title"),
+                               
+                               sidebarLayout(   
+                                 sidebarPanel(  
+                                   
+                                 ),
+                                 mainPanel(
+                                   h1("Data")
+                              
+                                 )
+                               )
+                               
+                               
                               )
                   )
 shinyUI(my.ui)

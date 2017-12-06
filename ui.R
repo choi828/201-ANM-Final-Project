@@ -1,6 +1,14 @@
 library(shiny)
 library(plotly)
 
+soccer.data <- read.csv("~/INFO_201/Assignments/201-ANM-Final-Project/data/results.csv", encoding = "UTF-8")
+soccer.data <- data.frame(lapply(soccer.data, as.character), stringsAsFactors=FALSE)
+
+# setup for selectInput widget
+soccer.data <- soccer.data[order(soccer.data$home_team),]
+mylist = as.list(soccer.data$home_team)
+#
+
 my.ui <- navbarPage("GROUP ANM",
                      tabPanel("Home",
                               h1("Alexander, Nicholas, and Macklan Present:"),
@@ -16,11 +24,11 @@ my.ui <- navbarPage("GROUP ANM",
                      tabPanel("Team vs. Team",
                               titlePanel("How did teams fare against each other over the years?"),
                               
-                              sidebarLayout(   
+                              sidebarLayout(
                                 sidebarPanel(  
                                   p("Configure Data:"),
-                                  textInput('teama', "Home Team's Country", "Argentina"),
-                                  textInput('teamb', "Away Team's Country", "Brazil")
+                                  selectInput('teama', "Home Team's Country", choices = mylist),
+                                  selectInput('teamb', "Away Team's Country", choices = mylist)
                                 ),
                                 mainPanel(
                                   h1("Data"),
@@ -36,7 +44,7 @@ my.ui <- navbarPage("GROUP ANM",
                                   p("Choose a timeframe:"),
                                   sliderInput('slide', label = "Timeframe", min = 1885, 
                                               max = 2017, value = c(2000,2017), sep = ""),
-                                  checkboxInput('dim', "3D", value = FALSE)
+                                  checkboxInput('dim', "View with specific tournaments", value = FALSE)
                                 ),
                                 mainPanel(
                                   h1("Data"),

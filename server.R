@@ -2,18 +2,21 @@ library(shiny)
 library(plotly)
 
 # get all data and take it out of vector form
-soccer.data <- read.csv("~/INFO_201/Assignments/201-ANM-Final-Project/data/results.csv")
+soccer.data <- read.csv("~/INFO_201/Assignments/201-ANM-Final-Project/data/results.csv", encoding = "UTF-8")
 soccer.data <- data.frame(lapply(soccer.data, as.character), stringsAsFactors=FALSE)
 soccer.data$home_score <- as.numeric(soccer.data$home_score)
 soccer.data$away_score <- as.numeric(soccer.data$away_score)
 #
+
 my.server <- function(input, output) {
     url <- a("GitHub Project Link", href="https://github.com/oldsalann/201-ANM-Final-Project")
     output$git <- renderUI({tagList(url)}) 
   
+    # graph 1
     output$teamvsteam <- renderPlotly({
       # filter data to input specifics
       team.data <- soccer.data %>% filter(home_team == input$teama & away_team == input$teamb)
+      # formatting
       f <- list(family = "Courier New, monospace", size = 18, color = "#7f7f7f")
       x <- list(title = paste0(c(rep("\n&nbsp;", 1), rep("&nbsp;", 1000), "Year", rep("&nbsp;", 1000)), collapse = ""), 
                 titlefont = f)
@@ -28,6 +31,7 @@ my.server <- function(input, output) {
       print(pl)
     })
 
+    # graph 2
     output$mapmap <- renderPlotly({
       # filter data to input specifics
       us.data <- soccer.data %>% 
@@ -35,19 +39,26 @@ my.server <- function(input, output) {
         filter(country == 'USA')
       # make a new column with just years to group by
       us.data$year <- format(as.Date(us.data$date, format="%Y-%m-%d"),"%Y")
+      # formatting
+      f <- list(family = "Courier New, monospace", size = 18, color = "#7f7f7f")
+      x <- list(title = paste0(c(rep("\n&nbsp;", 1), rep("&nbsp;", 1000), "Year", rep("&nbsp;", 1000)), collapse = ""), titlefont = f)
+      ytourn <- list(title = "Tournament", titlefont = f)
+      ycount <- list(title = "Count", titlefont = f)
+      z <- list(title = "Count", titlefont = f)
+      m3d <- list(t = 0)
       if (input$dim == TRUE) { # If you want it in 3d
           us.data <- us.data %>% group_by(tournament, year) %>% summarise(n = n())
-          p <- plot_ly(us.data, x = ~year, y = ~tournament, z = ~n, type = 'scatter3d', 
-                       mode = 'lines')
+          p <- plot_ly(x = ~year, y = ~tournament, z = ~n, type = 'scatter3d', 
+                       mode = 'lines') %>% layout(xaxis = x, yaxis = ytourn, zaxis = z, autosize = F, width = 500, height = 750, margin = m3d)
       } else { # if you do not want it in 3d
           us.data <- us.data %>% group_by(year) %>% summarise(n = n())
-          p <- plot_ly(us.data, x = ~year, y = ~n, type = 'scatter', 
-                       mode = 'lines') 
+          p <- plot_ly(us.data, x = us.data$year, y = us.data$n, type = 'scatter', 
+                       mode = 'lines') %>% layout(xaxis = x, yaxis = ycount)
       }
       print(p)
     })
     
-    
+    # graph 3
     output$numwins <- renderPlotly({
       # filter data to input specifics
       win.data <- soccer.data %>% filter(home_team == input$team_spec)

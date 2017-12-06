@@ -26,7 +26,7 @@ my.ui <- navbarPage("My Application",
                                 sidebarPanel(  
                                   p("Choose a timeframe:"),
                                   sliderInput('slide', label = "Timeframe", min = 1885, 
-                                              max = 2017, value = c(1885,2017)),
+                                              max = 2017, value = c(2000,2017)),
                                   checkboxInput('dim', "3D", value = FALSE)
                                 ),
                                 mainPanel(
@@ -35,16 +35,20 @@ my.ui <- navbarPage("My Application",
                                 )
                               )
                       ),
-                      tabPanel("Macklan's Graph",
-                               titlePanel("title"),
+                      tabPanel("Number of Wins Per Era",
+                               titlePanel("Number of wins for a certain team during a specified era"),
                                
                                sidebarLayout(   
                                  sidebarPanel(  
-                                   
+                                   p("Choose a timeframe:"),
+                                   sliderInput('slide2', label = "Timeframe", min = 1885, 
+                                               max = 2017, value = c(2000,2017)),
+                                   p("Choose a country:"),
+                                   textInput('team_spec', "Home Team's Country", "Argentina")
                                  ),
                                  mainPanel(
-                                   h1("Data")
-                              
+                                   h1("Data"),
+                                   plotlyOutput("numwins")
                                  )
                                )
                                

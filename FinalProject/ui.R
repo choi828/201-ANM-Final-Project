@@ -1,7 +1,7 @@
 library(shiny)
 library(plotly)
 
-soccer.data <- read.csv("~/201-ANM-Final-Project/data/results.csv", encoding = "UTF-8")
+soccer.data <- read.csv("data/results.csv")
 soccer.data <- data.frame(lapply(soccer.data, as.character), stringsAsFactors=FALSE)
 
 # setup for selectInput widget

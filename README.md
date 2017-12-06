@@ -9,6 +9,6 @@ First graph: Choose home and away team in text box with properly capitalized pro
 Second graph: Choose timeframe and select 3d box if you want to see additionally, the types of wins that each game is.
 Third graph: Choose a timeframe and country that you would like to see their amounts of wins.
 
-Shiny Link: https://oldsn-uw.shinyapps.io/201-ANM-Final-Project/
+Shiny Link: https://kalex.shinyapps.io/FinalProject/
 
 Dataset Link: https://www.kaggle.com/martj42/international-football-results-from-1872-to-2017/data
